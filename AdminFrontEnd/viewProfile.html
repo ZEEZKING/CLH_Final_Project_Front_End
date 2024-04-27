@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Manager Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="newtest.css" />
+    <!-- Bootstrap CSS link -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .manager-card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .manager-card img {
+        border-radius: 50%; /* Make the image rounded */
+        margin-bottom: 20px;
+        width: 100px; /* Adjust the width as needed */
+        height: 100px; /* Adjust the height as needed */
+        object-fit: cover; /* Ensure the image covers the entire circle */
+      }
+
+      .manager-card label {
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+
+      .manager-card input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .manager-details {
+        text-align: left;
+      }
+
+      .manager-details p {
+        margin: 5px 0;
+      }
+
+      .btn-primary,
+      .btn-danger {
+        margin-top: 10px;
+      }
+    </style>
+    <!-- Bootstrap JS and Popper.js scripts (required for some Bootstrap features) -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-eMNvnvbQ/ebhRMv8B7lNA8KO7ZYiJ5/j3ZgNTYH6IcmUqQFZZg8BZ5Ygs5osO6V"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyBkLPeMz5eP9bt8HD1uA6BqDh1p+X7pL"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div id="managerProfile"></div>
+
+    <script>
+      // Extract manager ID from the URL
+      let id = localStorage.getItem("Id");
+      console.log(id);
+
+      // Fetch data for the single manager from the API
+      fetch(`https://localhost:7285/api/Manager/GetManager/${id}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((managerData) => {
+          // Log the entire response for debugging
+          console.log("API Response:", managerData);
+
+          // Check if the API response was successful
+          if (managerData.sucesss) {
+            // Process and display single manager information
+            renderManagerProfile(managerData.data);
+          } else {
+            console.error(
+              `Error fetching manager data: ${managerData.message}`
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching manager data:", error);
+          // Handle the error here
+        });
+
+      // Function to render single manager profile
+      function renderManagerProfile(manager) {
+        const managerProfileContainer =
+          document.getElementById("managerProfile");
+
+        // Create HTML elements for the single manager
+        const managerCard = document.createElement("div");
+        managerCard.classList.add("manager-card");
+        managerCard.innerHTML = `
+
+                <img src="https://localhost:7285/images/${manager.image}" alt="${manager.name}" />
+            <div class="manager-details">
+                <label for="updateName">Name: </label>
+                <input type="text" id="name" value="${manager.name}" />
+
+                <label for="updateEmail">Email: </label>
+                <input type="email" id="email" value="${manager.email}" />
+
+                <label for="updateUserName">Username: </label>
+                <input type="text" id="userName" value="${manager.userName}" />
+
+                <label for="updatePhoneNumber">PhoneNumber: </label>
+                <input type="text" id="phoneNumber" value="${manager.phoneNumber}" />
+
+                <label for="updateAddress">Address: </label>
+                <input type="text" id="address" value="${manager.address}" />
+
+                
+            </div>
+            <hr />
+            <div class="button">
+            <button class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
+            </div>
+
+            `;
+        managerProfileContainer.appendChild(managerCard);
+      }
+      // ... Your existing script ...
+
+      // Function to update the profile
+      function updateProfile() {
+        // Redirect to the update profile page
+        const userId = localStorage.getItem("Id");
+
+        //window.location.href = `updateprofile.html?id=${userId}`;
+        window.location.href = "testUpt.html";
+      }
+    </script>
+  </body>
+</html>

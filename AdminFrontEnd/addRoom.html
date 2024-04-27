@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="css/newtest.css"> <!-- Link to your external CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h2>Room Form</h2>
+        <form id="addroom-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="RoomName">RoomName</label>
+                <input type="text" id="roomname" name="roomname" required>
+            </div>
+            <div class="form-group">
+                <label for="RoomNumber">RoomNumber</label>
+                <input type="number" id="RoomNumber" name="RoomNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input type="text" id="description" name="description" required>
+            </div>
+            <div class="form-group">
+                <label for="Occupancy">Occupancy</label>
+                <input type="number" id="Occupancy" name="Occupancy" required>
+            </div>
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input type="number" id="Price" name="Price" required>
+            </div>
+            <div class="form-group">
+                <label for="Quantity">Quantity</label>
+                <input type="number" id="Quantity" name="Quantity" required>
+            </div>
+            <div class="form-group">
+                <label for="Types">Types</label>
+                <input type="text" id="types" name="types" required>
+            </div>
+            <div class="form-group">
+                <label for="ImagePics">RoomPics</label>
+                <input type="file" id="Roomimage" name="ImagePics" accept="image/*">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register">
+                <!-- <button type="submit" >Register</button> -->
+            </div>
+        </form>
+    </div>
+    <script src="./Admin/addRoom.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script> -->
+</body>
+</html>

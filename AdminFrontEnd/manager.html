@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Manager List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #managerList {
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .manager-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 45%; /* Adjust the width as needed to fit two cards in a row */
+        }
+
+        .manager-card img {
+            border-radius: 50%; /* Make the image rounded */
+            margin-bottom: 10px;
+            width: 100px; /* Adjust the width as needed */
+            height: 100px; /* Adjust the height as needed */
+            object-fit: cover; /* Ensure the image covers the entire circle */
+        }
+
+        .manager-card hr {
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .manager-details {
+            text-align: left; /* Align text to the left */
+        }
+
+        .manager-details p {
+            margin: 5px 0; /* Add some margin between paragraphs */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="managerList"></div>
+
+    <script>
+        // Fetch data from the API
+        fetch('https://localhost:7285/api/Manager/GetAllManager')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Log the entire response for debugging
+                console.log('API Response:', data);
+
+                // Check if the API response was successful
+                if (data.sucesss) {
+                    // Process and display manager information
+                    renderManagerList(data.data);
+                } else {
+                    console.error(`Error fetching data: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                // Handle the error here
+            });
+
+        // Function to render manager information
+        function renderManagerList(managers) {
+            const managerListContainer = document.getElementById('managerList');
+
+            // Log the value of managers to the console
+            console.log('Managers:', managers);
+
+            // Check if managers is an array
+            if (Array.isArray(managers)) {
+                // Create HTML elements for each manager
+                managers.forEach(manager => {
+                    const managerCard = document.createElement('div');
+                    managerCard.classList.add('manager-card');
+                    managerCard.innerHTML = `
+                        <img src="https://localhost:7285/images/${manager.image}" alt="${manager.name}" />
+                        <div class="manager-details">
+                            <p>Name: ${manager.name}</p>
+                            <p>Email: ${manager.email}</p>
+                            <p>Username: ${manager.userName}</p>
+                            <p>Role: ${manager.roleName}</p>
+                        </div>
+                        <hr />
+                    `;
+                    managerListContainer.appendChild(managerCard);
+                });
+            } else {
+                // Display a message if no managers are found
+                managerListContainer.innerHTML = 'No managers found.';
+            }
+        }
+    </script>
+</body>
+
+</html>

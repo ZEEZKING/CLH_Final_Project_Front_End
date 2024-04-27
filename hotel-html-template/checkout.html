@@ -1,0 +1,37 @@
+<!-- checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+<body>
+    <div id="payment-details">
+        <!-- Payment details will be populated here -->
+    </div>
+    
+    <script>
+        // Extract reference from the URL
+        const reference = window.location.href.split("=")[1];
+
+        // Fetch payment details using the reference
+        fetch(`https://localhost:7285/api/Payment/Get/${reference}`)
+            .then(res => res.json())
+            .then(response => {
+                const paymentDetails = document.querySelector("#payment-details");
+
+                // Display payment details
+                const paymentInfo = `
+                    <p>Status: ${response.data.gateway_response.toUpperCase()}</p>
+                    <p>Bank Name: ${response.data.authorization.bank.toUpperCase()}</p>
+                    <p>Email: ${response.data.customer.email}</p>
+                    <p>Paid with: ${response.data.authorization.channel.toUpperCase()}</p>
+                    <!-- Add more details as needed -->
+                `;
+                paymentDetails.innerHTML = paymentInfo;
+            })
+            .catch(error => console.error("Error fetching payment details:", error));
+    </script>
+</body>
+</html>

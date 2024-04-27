@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SkyBox Hotel Complete Registration</title>
+    <link rel="stylesheet" href="css/test.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">#SkyBox</div>
+      <div class="content">
+        <form action="#" id="sign-up-form" enctype="multipart/form-data">
+          <!-- <form name="form" id="sign-up-form" enctype="multipart/form-data"> -->
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Full Name</span>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Username</span>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="name@example.com"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                id="password"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Age</span>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                placeholder="Enter your Age"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input
+                type="text"
+                id="phonenumber"
+                name="phonenumber"
+                placeholder="Enter your number"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Enter Your Address</span>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Enter your Address"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                placeholder="confirm-password"
+                required
+                oninput="checkingForPassword(this.value)"
+              />
+              <small id="error-message" style="color: red"></small>
+            </div>
+          </div>
+          <div class="gender-details">
+            <input type="radio" name="gender" id="dot-1" value="1" />
+            <input type="radio" name="gender" id="dot-2" value="2" />
+            <span class="gender-title">Gender</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender">Male</span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender">Female</span>
+              </label>
+            </div>
+          </div>          
+          <div class="input-box">
+            <label class="details">Profile Picture</label>
+            <input type="file" id="profileimage" name="profileimage" required />
+          </div>
+
+          <div class="button" id="yourButtonId">
+            <input type="submit" value="Register" />
+            <!-- <p class="button">Already have an Account? <a href="./signin.html">Sign In</a></p> -->
+            <p class="button">
+              Already have an Account?
+              <a href="./login-form-11/signin.html">Sign In</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- JavaScript to disable the button after click -->
+    <script>
+      let error = document.querySelector("#error-message");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+
+      let checkingForPassword = (confirmpassword) => {
+        if (confirmpassword != confirmPasswordInput.value) {
+          error.InnerText = "Password not match";
+        } else {
+          error.InnerText = "";
+        }
+      };
+      document
+        .getElementById("yourButtonId")
+        .addEventListener("click", function () {
+          // Disable the button
+          this.disabled = true;
+          console.log("e enter ooooo");
+
+          // Optionally, you can change the text to provide feedback
+          //this.innerText = "Processing...";
+
+          const form = document.getElementById("sign-up-form");
+
+          form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(form);
+
+            // Make an API request to send the form data
+            fetch("https://localhost:7285/api/Manager/CompleteRegistration", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Handle the API response (e.g., show a success message)
+                console.log(data);
+                if(data.sucesss == true){
+                  localStorage.setItem("registrationid", data.id);
+                // Update the button text after successful registration
+                document.getElementById("yourButtonId").innerText =
+                  "Registered!";
+                window.alert("Successfully Completed Your registeration");
+                location.href=
+                "http://127.0.0.1:5501/AdminFrontEnd/login-form-11/signin.html";
+                }
+                
+              })
+              .catch((error) => {
+                // Handle errors
+                console.error(error);
+                // Reset the button text in case of an error
+                document.getElementById("yourButtonId").innerText = "Register";
+                // Re-enable the button
+                this.disabled = false;
+              });
+          });
+        });
+    </script>
+    <!-- <script src="./general/register.js"></script> -->
+  </body>
+</html>

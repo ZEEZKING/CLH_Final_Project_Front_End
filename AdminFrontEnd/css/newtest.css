@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 40vh;
+    display: inline-table;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 60vw;
+    justify-content: center;
+    align-items: center;
+    margin-left: 21%;
+    padding: 20vh;
+    overflow: auto;
+    background: linear-gradient(135deg #fff, #0f172b);
+    background-color: #0f172b;
+}
+
+.container {
+    max-width: 700px;
+    width: 100%;
+    background: #fea116;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.container h2 {
+    font-size: 25px;
+    font-weight: 500;
+    position: center;
+    margin-top: -61px;
+    margin-left: 180px;
+}
+h2{
+    background: #fea116;
+    width: 230px;
+    border-radius: 10px ;
+    
+}
+.container h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 10px;
+    /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+    background: #fea116;
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    height: 30px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 10px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus, .form-group input:valid, .form-group select:focus, .form-group select:valid {
+    border-color: #fea116;
+}
+
+.container .button {
+    height: 45px;
+    margin: 35px 0;
+}
+
+.container .button button {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fea116;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+    background: #fea116;
+
+}
+
+.container .button button:hover {
+    background: linear-gradient(-135deg, #fea116);
+}
+
+@media (max-width: 584px) {
+    .container {
+        max-width: 100%;
+    }
+}

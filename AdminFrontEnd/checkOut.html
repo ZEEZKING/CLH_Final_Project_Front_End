@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+
+        .checkout-form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="checkout-form">
+    <h2>Checkout</h2>
+    <form id="checkoutForm">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phonenumber" name="phonenumber" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+            <label for="totalAmount">Total Amount:</label>
+            <input type="number" id="totalAmount" name="totalAmount" placeholder="Enter total amount" step="0.01" min="0" required>
+        </div>
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</div>
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the value of the totalAmount input field from localStorage
+    let totalAmt = localStorage.getItem("TotalAmount");
+    if (totalAmt) {
+        document.getElementById('totalAmount').value = totalAmt;
+    }
+
+    document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let emailValue = document.getElementById('email').value;
+        let phoneValue = document.getElementById('phonenumber').value;
+
+        let bookingId = localStorage.getItem("BookingId"); // Assuming you have this in your local storage
+        let orderId =  0; // You can generate this dynamically based on your logic
+
+        const inputes = {
+            amount: parseFloat(totalAmt), 
+            email: emailValue,
+            phoneNumber: phoneValue
+            
+        };
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(inputes),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        let customId = localStorage.getItem("Id");
+        console.log(customId);
+
+        // Update the URL to include both bookingId and orderId as route parameters
+        //let apiUrl = `https://localhost:7285/api/Payment/InitiatePayment/${bookingId}`;
+
+        // fetch(apiUrl, options)
+        //     .then(res => res.json())
+        //     .then(function(response) {
+        //         console.log(response);
+        //         if (response.status === true) { // Use strict equality
+        //             location.href = response.data.authorization_url;
+        //         } else {
+        //             Swal.fire("Oops!", `Something went wrong`, "warning");
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //         Swal.fire("Error!", "Failed to initiate payment", "error");
+        //     });
+        fetch(`https://localhost:7285/api/Payment/InitiatePayment/${customId}/${bookingId}`, options)
+            .then(res =>res.json())
+            .then(function(response){
+                console.log(response)
+                if (response.status == true) {
+                    location.href = response.data.authorization_url
+                } 
+                else {
+                    Swal.fire("Opps!", `Something went wrong`, "warning");
+                }
+            });
+            // .catch(error => {
+            //     console.error('Error:', error);
+            //     Swal.fire("Error!", "Failed to initiate payment", "error");
+            // });
+
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //    // let totalAmt =  localStorage.getItem("TotalAmount");
+    //     let emailValue = document.getElementById('email').value;
+    //     let phoneValue = document.getElementById('phoneNumber').value;
+    //     let totalAmountValue =document.getElementById('totalAmount').value = localStorage.getItem("TotalAmount") || '';
+
+    //     let bookingId = localStorage.getItem("BookingId"); // Assuming you have this in your local storage
+    //     let orderId = 0; // You can generate this dynamically based on your logic
+
+    //     const inputs = {
+    //         amount: totalAmountValue,
+    //         email: emailValue,
+    //         phoneNumber: phoneValue
+    //     };
+
+    //     const options = {
+    //         method: 'POST',
+    //         body: JSON.stringify(inputs),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     };
+
+    //     fetch(`https://localhost:7285/api/Payment/InitiatePayment/${bookingId}/${orderId}`, options)
+    //         .then(res => res.json())
+    //         .then(function(response) {
+    //             console.log(response);
+    //             if (response.status == true) {
+    //                 location.href = response.data.authorization_url;
+    //             } else {
+    //                 Swal.fire("Oops!", `Something went wrong`, "warning");
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //             Swal.fire("Error!", "Failed to initiate payment", "error");
+    //         });
+    // });
+</script>
+
+<!-- Assuming you're using SweetAlert2 library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

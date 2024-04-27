@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facilities Update</title>
+    <!-- Include the SweetAlert library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:whitesmoke;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 10px;
+            
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color:blanchedalmond;
+            padding: 25px 30px; 
+             border-radius: 5px;
+             display: flexbox;
+             justify-content: center;
+            align-items: center;
+            /* padding: 25px 30px;
+            border-radius: 10px; */
+            /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); */
+            }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-button {
+            background-color: #FF3333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Facilities Update</h1>
+        <form id="package-update-form" enctype="multipart/form-data">
+           <!-- Room listings will be dynamically added here -->
+        </form>
+        
+    </div>
+    
+    <script src="./packageJs/UpdatePackagePage.js"></script>
+
+
+</body>
+</html>
+
